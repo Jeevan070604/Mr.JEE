@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Plus, Star, Flame, Clock, ChefHat } from 'lucide-react';
+import { ShoppingCart, Flame, Star, Clock, ChefHat, CheckCircle } from 'lucide-react';
 import { menuItems } from '@/data/menu';
 import { useCart } from '@/context/CartContext';
 import { MenuItem } from '@/types';
@@ -17,11 +17,10 @@ const categories = [
 
 function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   const { addToCart } = useCart();
-  const [isHovered, setIsHovered] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
   const [imgError, setImgError] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleClick = () => {
     addToCart(item);
     setShowAdded(true);
     setTimeout(() => setShowAdded(false), 1500);
@@ -29,109 +28,72 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      transition={{ duration: 0.3, delay: index * 0.03 }}
+      className="group relative cursor-pointer"
+      onClick={handleClick}
     >
-      <div className="relative overflow-hidden rounded-lg bg-[#1a1a1a] card-hover">
-        {/* Square Image Container - Fixed aspect ratio */}
-        <div className="relative aspect-square overflow-hidden bg-[#252525]">
-          {!imgError ? (
-            <motion.img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-              animate={{ scale: isHovered ? 1.05 : 1 }}
-              transition={{ duration: 0.4 }}
-              loading="lazy"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#FF4D00]/20 to-[#FFD700]/20">
-              <span className="text-2xl sm:text-4xl">🍽️</span>
-            </div>
+      {/* Square Image Only - click to add to cart */}
+      <div className="relative aspect-square overflow-hidden rounded-lg bg-[#252525]">
+        {!imgError ? (
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#FF4D00]/20 to-[#FFD700]/20">
+            <span className="text-2xl sm:text-3xl">🍽️</span>
+          </div>
+        )}
+
+        {/* Dark gradient at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
+
+        {/* Badges top-left */}
+        <div className="absolute top-1 left-1 flex gap-0.5">
+          {item.isBestseller && (
+            <span className="px-1 text-[7px] sm:text-[9px] font-bold bg-[#FFD700] text-black rounded">★</span>
           )}
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
-          
-          {/* Badges - Smaller on mobile */}
-          <div className="absolute top-1 sm:top-2 left-1 sm:left-2 flex gap-0.5 sm:gap-1">
-            {item.isBestseller && (
-              <span className="px-1 sm:px-2 py-0 sm:py-0.5 text-[8px] sm:text-[10px] font-semibold bg-[#FFD700] text-black rounded">
-                B
-              </span>
-            )}
-            {item.isSpicy && (
-              <span className="px-1 sm:px-2 py-0 sm:py-0.5 text-[8px] sm:text-[10px] font-semibold bg-[#FF4D00] text-white rounded flex items-center">
-                <Flame className="w-2 h-2 sm:w-2.5 sm:h-2.5" />
-              </span>
-            )}
-          </div>
-
-          {/* Quick Add Button - Hidden on mobile, show on larger */}
-          <motion.button
-            onClick={handleAddToCart}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            className="hidden sm:flex absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FF4D00] items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-          </motion.button>
+          {item.isSpicy && (
+            <span className="px-1 text-[7px] sm:text-[9px] font-bold bg-[#FF4D00] text-white rounded">🌶</span>
+          )}
         </div>
 
-        {/* Content - Compact on mobile */}
-        <div className="p-1.5 sm:p-3">
-          {/* Food Name - Smaller on mobile */}
-          <h3 className="text-[10px] sm:text-sm font-semibold text-white group-hover:text-[#FF4D00] transition-colors leading-tight mb-0.5 sm:mb-1 line-clamp-2 min-h-[1.75rem] sm:min-h-[2.5rem]">
+        {/* Name + Price overlaid on bottom */}
+        <div className="absolute bottom-0 left-0 right-0 px-1.5 pb-1.5 pt-1">
+          <p className="text-white font-semibold text-[9px] sm:text-[11px] leading-tight line-clamp-1">
             {item.name}
-          </h3>
-
-          <div className="flex items-center justify-between mb-1 sm:mb-2">
-            <span className="text-xs sm:text-base font-bold text-[#FF4D00]">₹{item.price}</span>
-            <div className="flex items-center gap-0.5 sm:gap-1 text-[#FFD700]">
-              <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
-              <span className="text-[10px] sm:text-xs font-medium">{item.rating}</span>
-            </div>
-          </div>
-
-          {/* Add to Cart Button - Compact on mobile */}
-          <motion.button
-            onClick={handleAddToCart}
-            className="w-full py-1 sm:py-2 rounded bg-white/5 hover:bg-[#FF4D00] text-white text-[10px] sm:text-sm font-medium transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 group/btn"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <AnimatePresence mode="wait">
-              {showAdded ? (
-                <motion.span
-                  key="added"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="text-green-400 text-[10px] sm:text-sm"
-                >
-                  <span className="sm:hidden">✓</span>
-                  <span className="hidden sm:inline">Added! ✓</span>
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="add"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm"
-                >
-                  <Plus className="w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:rotate-90 transition-transform" />
-                  <span className="hidden sm:inline">Add</span>
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
+          </p>
+          <p className="text-[#FF4D00] font-bold text-[9px] sm:text-xs">₹{item.price}</p>
         </div>
+
+        {/* Hover: Tap to Add hint */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-center justify-center">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center gap-1">
+            <ShoppingCart className="w-5 h-5 sm:w-7 sm:h-7 text-white drop-shadow-lg" />
+            <span className="text-white text-[8px] sm:text-xs font-semibold drop-shadow">Tap to Add</span>
+          </div>
+        </div>
+
+        {/* Added! flash overlay */}
+        <AnimatePresence>
+          {showAdded && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-[#FF4D00]/85 flex flex-col items-center justify-center rounded-lg"
+            >
+              <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-1" />
+              <span className="text-white text-[9px] sm:text-xs font-bold">Added!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
@@ -148,7 +110,6 @@ export default function Menu() {
 
   return (
     <section id="menu" className="py-24 bg-[#0B0B0B] relative overflow-hidden">
-      {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF4D00]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl" />
@@ -175,8 +136,7 @@ export default function Menu() {
             <span className="gradient-text">Dishes</span>
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto text-lg">
-            Explore our carefully curated selection of authentic street food, 
-            crafted with passion and the finest ingredients.
+            Tap any dish image to instantly add it to your cart.
           </p>
         </motion.div>
 
@@ -208,10 +168,10 @@ export default function Menu() {
           })}
         </motion.div>
 
-        {/* Menu Grid - 4 mobile, 3 tablet, 4 desktop, 5 large */}
+        {/* Menu Grid - image only, tap to add to cart */}
         <div
           key={activeCategory}
-          className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-5 lg:gap-6"
+          className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2 sm:gap-3 lg:gap-4"
         >
           {filteredItems.map((item, index) => (
             <MenuCard key={item.id} item={item} index={index} />
