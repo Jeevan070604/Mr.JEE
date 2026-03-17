@@ -174,22 +174,22 @@ export default function Reviews() {
           <p className="text-white/25 text-[10px]">← Swipe or drag to see more →</p>
         </div>
 
-        {/* Stats - compact 4 col */}
+        {/* Stats - 4 per row, small rectangle on mobile */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-10 grid grid-cols-4 gap-2 sm:gap-4"
+          className="mt-6 grid grid-cols-4 gap-1.5 sm:gap-3"
         >
           {[
             { value: '4.9', label: 'Rating' },
             { value: '10K+', label: 'Reviews' },
             { value: '95%', label: 'Recommend' },
-            { value: '4.8', label: 'Food Quality' },
+            { value: '4.8', label: 'Quality' },
           ].map((stat, index) => (
-            <div key={index} className="text-center py-3 px-2 rounded-xl border border-white/8 bg-[#141414]">
-              <div className="text-xl sm:text-2xl font-bold gradient-text">{stat.value}</div>
-              <div className="text-[9px] sm:text-xs text-white/50 mt-0.5">{stat.label}</div>
+            <div key={index} className="text-center py-2 px-1 sm:py-3 sm:px-2 rounded-lg border border-white/10 bg-[#141414]">
+              <div className="text-sm sm:text-xl font-bold gradient-text leading-tight">{stat.value}</div>
+              <div className="text-[8px] sm:text-[11px] text-white/50 mt-0.5 leading-tight">{stat.label}</div>
             </div>
           ))}
         </motion.div>
