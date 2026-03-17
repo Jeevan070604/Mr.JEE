@@ -1,6 +1,5 @@
-[00:00:59.700] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
-[00:01:02.710] Server  LOG     ○ Compiling /_error ...
-[00:01:24.670] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
-[00:01:49.653] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
-[00:02:14.677] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
-[00:02:39.699] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
+[00:00:01.963] Server  LOG     ✓ Ready in 1342ms
+[00:00:19.619] Server  LOG     ○ Compiling / ...
+[00:00:27.991] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:00:35.579] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:35.580] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
