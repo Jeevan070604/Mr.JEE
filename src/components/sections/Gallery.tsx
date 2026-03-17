@@ -1,19 +1,40 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn, Camera } from 'lucide-react';
+import { X, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '@/data/menu';
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  // Arrange images in masonry pattern
-  const leftColumn = galleryImages.filter((_, i) => i % 3 === 0);
-  const middleColumn = galleryImages.filter((_, i) => i % 3 === 1);
-  const rightColumn = galleryImages.filter((_, i) => i % 3 === 2);
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const handlePrev = () => {
+    setIsAutoPlaying(false);
+    setActiveIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  const handleNext = () => {
+    setIsAutoPlaying(false);
+    setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    setIsAutoPlaying(false);
+    setActiveIndex(index);
+  };
 
   return (
     <section id="gallery" className="py-24 bg-[#0B0B0B] relative overflow-hidden">
@@ -44,136 +65,149 @@ export default function Gallery() {
             <span className="gradient-text">Gallery</span>
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto text-lg">
-            A glimpse into our culinary world. From kitchen to table, 
-            experience the artistry behind every dish.
+            Scroll through our culinary creations. Previous images minimize as you explore.
           </p>
         </motion.div>
 
-        {/* Masonry Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Left Column */}
-          <div className="space-y-4">
-            {leftColumn.map((image, index) => (
-              <GalleryImage
-                key={image.id}
-                image={image}
-                index={index}
-                onClick={() => setSelectedImage(image.src)}
-              />
-            ))}
+        {/* Coverflow Gallery */}
+        <div 
+          ref={containerRef}
+          className="relative h-[500px] sm:h-[600px] perspective-1000"
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+        >
+          <div className="relative w-full h-full flex items-center justify-center">
+            {galleryImages.map((image, index) => {
+              const offset = index - activeIndex;
+              const isActive = index === activeIndex;
+              const isPrev = offset === -1 || (activeIndex === 0 && index === galleryImages.length - 1);
+              const isNext = offset === 1 || (activeIndex === galleryImages.length - 1 && index === 0);
+              
+              let translateX = 0;
+              let translateZ = 0;
+              let rotateY = 0;
+              let scale = 0.6;
+              let opacity = 0.3;
+              let zIndex = 0;
+
+              if (isActive) {
+                translateX = 0;
+                translateZ = 100;
+                rotateY = 0;
+                scale = 1;
+                opacity = 1;
+                zIndex = 10;
+              } else if (isPrev) {
+                translateX = -45;
+                translateZ = -100;
+                rotateY = 35;
+                scale = 0.75;
+                opacity = 0.6;
+                zIndex = 5;
+              } else if (isNext) {
+                translateX = 45;
+                translateZ = -100;
+                rotateY = -35;
+                scale = 0.75;
+                opacity = 0.6;
+                zIndex = 5;
+              } else if (offset < -1 || (activeIndex < 2 && index > galleryImages.length - 3)) {
+                translateX = -70;
+                translateZ = -200;
+                rotateY = 45;
+                scale = 0.5;
+                opacity = 0.2;
+                zIndex = 1;
+              } else {
+                translateX = 70;
+                translateZ = -200;
+                rotateY = -45;
+                scale = 0.5;
+                opacity = 0.2;
+                zIndex = 1;
+              }
+
+              return (
+                <motion.div
+                  key={image.id}
+                  className="absolute w-[280px] sm:w-[400px] h-[350px] sm:h-[450px] cursor-pointer"
+                  initial={false}
+                  animate={{
+                    x: `${translateX}%`,
+                    z: translateZ,
+                    rotateY,
+                    scale,
+                    opacity,
+                    zIndex,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                  onClick={() => handleDotClick(index)}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  <div className={`relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ${
+                    isActive ? 'ring-4 ring-[#FF4D00]' : ''
+                  }`}>
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    
+                    {/* Content */}
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 p-6"
+                      animate={{ opacity: isActive ? 1 : 0.7 }}
+                    >
+                      <span className="text-xs uppercase tracking-wider text-[#FF4D00] mb-1 block">
+                        {image.category}
+                      </span>
+                      <h4 className="text-white font-semibold text-lg">{image.alt}</h4>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
-          {/* Middle Column - offset */}
-          <div className="space-y-4 md:mt-12">
-            {middleColumn.map((image, index) => (
-              <GalleryImage
-                key={image.id}
-                image={image}
-                index={index + leftColumn.length}
-                onClick={() => setSelectedImage(image.src)}
-              />
-            ))}
-          </div>
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
 
-          {/* Right Column */}
-          <div className="space-y-4">
-            {rightColumn.map((image, index) => (
-              <GalleryImage
-                key={image.id}
-                image={image}
-                index={index + leftColumn.length + middleColumn.length}
-                onClick={() => setSelectedImage(image.src)}
+          {/* Dots Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            {galleryImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex 
+                    ? 'w-8 bg-[#FF4D00]' 
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
               />
             ))}
           </div>
         </div>
       </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
-          >
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-            >
-              <X className="w-6 h-6 text-white" />
-            </motion.button>
-
-            <motion.img
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: 'spring', damping: 25 }}
-              src={selectedImage}
-              alt="Gallery preview"
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
-  );
-}
-
-function GalleryImage({
-  image,
-  index,
-  onClick,
-}: {
-  image: { src: string; alt: string; category: string };
-  index: number;
-  onClick: () => void;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onClick={onClick}
-      className="group relative overflow-hidden rounded-2xl cursor-pointer"
-    >
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.4 }}
-        className="relative aspect-[4/3]"
-      >
-        <img
-          src={image.src}
-          alt={image.alt}
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="text-xs uppercase tracking-wider text-[#FF4D00] mb-1">
-            {image.category}
-          </span>
-          <h4 className="text-white font-semibold">{image.alt}</h4>
-        </div>
-
-        {/* Zoom Icon */}
-        <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <ZoomIn className="w-5 h-5 text-white" />
-        </div>
-      </motion.div>
-    </motion.div>
   );
 }

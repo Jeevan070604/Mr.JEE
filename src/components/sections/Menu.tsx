@@ -19,6 +19,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(item);
@@ -37,69 +38,70 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative overflow-hidden rounded-lg bg-[#1a1a1a] card-hover">
-        {/* Image Container - Extra small for 8 per row */}
-        <div className="relative h-20 sm:h-24 lg:h-28 overflow-hidden">
-          <motion.img
-            src={item.image}
-            alt={item.name}
-            className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.05 : 1 }}
-            transition={{ duration: 0.4 }}
-            loading="lazy"
-          />
+        {/* Square Image Container - Fixed aspect ratio */}
+        <div className="relative aspect-square overflow-hidden bg-[#252525]">
+          {!imgError ? (
+            <motion.img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-full object-cover"
+              animate={{ scale: isHovered ? 1.05 : 1 }}
+              transition={{ duration: 0.4 }}
+              loading="lazy"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#FF4D00]/20 to-[#FFD700]/20">
+              <span className="text-4xl">🍽️</span>
+            </div>
+          )}
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
           
-          {/* Badges - Extra small */}
-          <div className="absolute top-1 left-1 flex gap-0.5">
+          {/* Badges */}
+          <div className="absolute top-2 left-2 flex gap-1">
             {item.isBestseller && (
-              <span className="px-1 py-0 text-[8px] font-semibold bg-[#FFD700] text-black rounded">
-                B
+              <span className="px-2 py-0.5 text-[10px] font-semibold bg-[#FFD700] text-black rounded">
+                Best
               </span>
             )}
             {item.isSpicy && (
-              <span className="px-1 py-0 text-[8px] font-semibold bg-[#FF4D00] text-white rounded flex items-center">
-                <Flame className="w-2 h-2" />
+              <span className="px-2 py-0.5 text-[10px] font-semibold bg-[#FF4D00] text-white rounded flex items-center gap-0.5">
+                <Flame className="w-2.5 h-2.5" />
               </span>
             )}
           </div>
 
-          {/* Quick Add Button - Extra small */}
+          {/* Quick Add Button */}
           <motion.button
             onClick={handleAddToCart}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
+            className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
           >
-            <Plus className="w-3 h-3" />
+            <Plus className="w-4 h-4" />
           </motion.button>
         </div>
 
-        {/* Content - Extra compact padding */}
-        <div className="p-2">
-          <div className="flex items-start justify-between mb-0.5">
-            <h3 className="text-xs font-semibold text-white group-hover:text-[#FF4D00] transition-colors line-clamp-1">
-              {item.name}
-            </h3>
-            <div className="flex items-center gap-0.5 text-[#FFD700] flex-shrink-0">
-              <Star className="w-2.5 h-2.5 fill-current" />
-              <span className="text-[10px] font-medium">{item.rating}</span>
+        {/* Content - Better spacing for names */}
+        <div className="p-3">
+          {/* Food Name - Full display with proper wrapping */}
+          <h3 className="text-sm font-semibold text-white group-hover:text-[#FF4D00] transition-colors leading-tight mb-1 min-h-[2.5rem] flex items-center">
+            {item.name}
+          </h3>
+
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-base font-bold text-[#FF4D00]">₹{item.price}</span>
+            <div className="flex items-center gap-1 text-[#FFD700]">
+              <Star className="w-3 h-3 fill-current" />
+              <span className="text-xs font-medium">{item.rating}</span>
             </div>
           </div>
 
-          <p className="text-[10px] text-white/60 mb-1 line-clamp-1 hidden sm:block">{item.description}</p>
-
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-sm font-bold text-[#FF4D00]">₹{item.price}</span>
-            <span className="text-[8px] text-white/40 flex items-center gap-0.5">
-              <Clock className="w-2 h-2" /> {item.prepTime}
-            </span>
-          </div>
-
-          {/* Add to Cart Button - Extra compact */}
+          {/* Add to Cart Button */}
           <motion.button
             onClick={handleAddToCart}
-            className="w-full py-1.5 rounded bg-white/5 hover:bg-[#FF4D00] text-white text-xs font-medium transition-all duration-300 flex items-center justify-center gap-1 group/btn"
+            className="w-full py-2 rounded-lg bg-white/5 hover:bg-[#FF4D00] text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group/btn"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -110,9 +112,9 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="text-green-400 text-[10px]"
+                  className="text-green-400 text-sm"
                 >
-                  ✓
+                  Added! ✓
                 </motion.span>
               ) : (
                 <motion.span
@@ -120,10 +122,10 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-1 text-[10px]"
+                  className="flex items-center gap-2 text-sm"
                 >
-                  <Plus className="w-3 h-3 group-hover/btn:rotate-90 transition-transform" />
-                  <span className="hidden sm:inline">Add</span>
+                  <Plus className="w-4 h-4 group-hover/btn:rotate-90 transition-transform" />
+                  Add
                 </motion.span>
               )}
             </AnimatePresence>
@@ -205,7 +207,7 @@ export default function Menu() {
           })}
         </motion.div>
 
-        {/* Menu Grid - 4 cards mobile, 8 cards large screen */}
+        {/* Menu Grid - 2 cards mobile, 3 tablet, 4 desktop, 5 large */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -213,7 +215,7 @@ export default function Menu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3 lg:gap-4"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6"
           >
             {filteredItems.map((item, index) => (
               <MenuCard key={item.id} item={item} index={index} />
