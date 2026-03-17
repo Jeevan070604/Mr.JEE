@@ -208,21 +208,15 @@ export default function Menu() {
           })}
         </motion.div>
 
-        {/* Menu Grid - 2 cards mobile, 3 tablet, 4 desktop, 5 large */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-5 lg:gap-6"
-          >
-            {filteredItems.map((item, index) => (
-              <MenuCard key={item.id} item={item} index={index} />
-            ))}
-          </motion.div>
-        </AnimatePresence>
+        {/* Menu Grid - 4 mobile, 3 tablet, 4 desktop, 5 large */}
+        <div
+          key={activeCategory}
+          className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-5 lg:gap-6"
+        >
+          {filteredItems.map((item, index) => (
+            <MenuCard key={item.id} item={item} index={index} />
+          ))}
+        </div>
 
         {/* View All Button */}
         <motion.div

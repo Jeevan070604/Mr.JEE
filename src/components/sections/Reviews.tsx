@@ -82,10 +82,10 @@ export default function Reviews() {
           </p>
         </motion.div>
 
-        {/* Reviews Carousel */}
-        <div className="relative max-w-4xl mx-auto">
+        {/* Reviews Carousel - Rectangular compact style */}
+        <div className="relative max-w-5xl mx-auto">
           {/* Main Review Card */}
-          <div className="relative h-[400px] sm:h-[350px]">
+          <div className="relative h-[200px] sm:h-[180px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -97,46 +97,44 @@ export default function Reviews() {
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 className="absolute inset-0"
               >
-                <div className="h-full p-8 sm:p-12 rounded-3xl glass flex flex-col items-center text-center">
-                  {/* Quote Icon */}
-                  <div className="w-12 h-12 rounded-full bg-[#FF4D00]/10 flex items-center justify-center mb-6">
-                    <Quote className="w-6 h-6 text-[#FF4D00]" />
-                  </div>
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${
-                          i < reviews[currentIndex].rating
-                            ? 'text-[#FFD700] fill-[#FFD700]'
-                            : 'text-white/20'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Review Text */}
-                  <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-8 flex-1">
-                    "{reviews[currentIndex].comment}"
-                  </p>
-
-                  {/* Reviewer */}
-                  <div className="flex items-center gap-4">
+                {/* Rectangular card - horizontal layout */}
+                <div className="h-full px-5 py-4 rounded-xl glass flex flex-row items-center gap-5 text-left">
+                  {/* Left: Avatar + info */}
+                  <div className="flex flex-col items-center flex-shrink-0 w-20 sm:w-24">
                     <img
                       src={reviews[currentIndex].avatar}
                       alt={reviews[currentIndex].name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-[#FF4D00]/30"
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border-2 border-[#FF4D00]/40 mb-2"
                     />
-                    <div className="text-left">
-                      <h4 className="font-semibold text-white">
-                        {reviews[currentIndex].name}
-                      </h4>
-                      <p className="text-sm text-white/50">
-                        {reviews[currentIndex].date}
-                      </p>
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-2.5 h-2.5 ${
+                            i < reviews[currentIndex].rating
+                              ? 'text-[#FFD700] fill-[#FFD700]'
+                              : 'text-white/20'
+                          }`}
+                        />
+                      ))}
                     </div>
+                    <p className="text-[10px] text-white/80 font-semibold mt-1 text-center leading-tight">
+                      {reviews[currentIndex].name}
+                    </p>
+                    <p className="text-[9px] text-white/40 text-center">
+                      {reviews[currentIndex].date}
+                    </p>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="w-px h-full bg-white/10 flex-shrink-0" />
+
+                  {/* Right: Quote + text */}
+                  <div className="flex-1 flex flex-col justify-center">
+                    <Quote className="w-5 h-5 text-[#FF4D00] mb-2 opacity-60" />
+                    <p className="text-sm sm:text-base text-white/85 leading-relaxed line-clamp-3">
+                      {reviews[currentIndex].comment}
+                    </p>
                   </div>
                 </div>
               </motion.div>
