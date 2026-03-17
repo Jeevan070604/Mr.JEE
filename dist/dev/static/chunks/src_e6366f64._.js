@@ -3826,12 +3826,12 @@ const categories = [
 ];
 function MenuCard(t0) {
     _s();
-    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(79);
-    if ($[0] !== "c0594927e1f7b4c7a01121e3758fb226d3e1049008978bea5190e9846472fde7") {
-        for(let $i = 0; $i < 79; $i += 1){
+    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(74);
+    if ($[0] !== "a7ee0cb338a9b19e3ae0583028df717f192571520a38f06c3d8600df21d3edf1") {
+        for(let $i = 0; $i < 74; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c0594927e1f7b4c7a01121e3758fb226d3e1049008978bea5190e9846472fde7";
+        $[0] = "a7ee0cb338a9b19e3ae0583028df717f192571520a38f06c3d8600df21d3edf1";
     }
     const { item, index } = t0;
     const { addToCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
@@ -3861,7 +3861,7 @@ function MenuCard(t0) {
     if ($[4] === Symbol.for("react.memo_cache_sentinel")) {
         t2 = {
             opacity: 0,
-            y: 50
+            y: 30
         };
         t3 = {
             opacity: 1,
@@ -3878,11 +3878,11 @@ function MenuCard(t0) {
         t3 = $[5];
         t4 = $[6];
     }
-    const t5 = index * 0.1;
+    const t5 = index * 0.05;
     let t6;
     if ($[7] !== t5) {
         t6 = {
-            duration: 0.5,
+            duration: 0.4,
             delay: t5
         };
         $[7] = t5;
@@ -3905,7 +3905,7 @@ function MenuCard(t0) {
         t7 = $[9];
         t8 = $[10];
     }
-    const t9 = isHovered ? 1.1 : 1;
+    const t9 = isHovered ? 1.05 : 1;
     let t10;
     if ($[11] !== t9) {
         t10 = {
@@ -3919,7 +3919,7 @@ function MenuCard(t0) {
     let t11;
     if ($[13] === Symbol.for("react.memo_cache_sentinel")) {
         t11 = {
-            duration: 0.6
+            duration: 0.4
         };
         $[13] = t11;
     } else {
@@ -3932,7 +3932,8 @@ function MenuCard(t0) {
             alt: item.name,
             className: "w-full h-full object-cover",
             animate: t10,
-            transition: t11
+            transition: t11,
+            loading: "lazy"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
             lineNumber: 138,
@@ -3961,8 +3962,8 @@ function MenuCard(t0) {
     let t14;
     if ($[19] !== item.isBestseller) {
         t14 = item.isBestseller && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "px-2 py-1 text-xs font-semibold bg-[#FFD700] text-black rounded-full",
-            children: "Bestseller"
+            className: "px-1.5 py-0.5 text-[10px] font-semibold bg-[#FFD700] text-black rounded-full",
+            children: "Best"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
             lineNumber: 155,
@@ -3976,14 +3977,14 @@ function MenuCard(t0) {
     let t15;
     if ($[21] !== item.isSpicy) {
         t15 = item.isSpicy && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "px-2 py-1 text-xs font-semibold bg-[#FF4D00] text-white rounded-full flex items-center gap-1",
+            className: "px-1.5 py-0.5 text-[10px] font-semibold bg-[#FF4D00] text-white rounded-full flex items-center gap-0.5",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$flame$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Flame$3e$__["Flame"], {
-                    className: "w-3 h-3"
+                    className: "w-2 h-2"
                 }, void 0, false, {
                     fileName: "[project]/src/components/sections/Menu.tsx",
                     lineNumber: 163,
-                    columnNumber: 138
+                    columnNumber: 148
                 }, this),
                 " Spicy"
             ]
@@ -4000,7 +4001,7 @@ function MenuCard(t0) {
     let t16;
     if ($[23] !== t14 || $[24] !== t15) {
         t16 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "absolute top-3 left-3 flex gap-2",
+            className: "absolute top-2 left-2 flex gap-1",
             children: [
                 t14,
                 t15
@@ -4043,7 +4044,7 @@ function MenuCard(t0) {
     let t21;
     if ($[30] === Symbol.for("react.memo_cache_sentinel")) {
         t21 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-            className: "w-5 h-5"
+            className: "w-4 h-4"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
             lineNumber: 204,
@@ -4059,7 +4060,7 @@ function MenuCard(t0) {
             onClick: handleAddToCart,
             initial: t17,
             animate: t20,
-            className: "absolute bottom-3 right-3 w-10 h-10 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors",
+            className: "absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors",
             children: t21
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
@@ -4075,7 +4076,7 @@ function MenuCard(t0) {
     let t23;
     if ($[34] !== t12 || $[35] !== t16 || $[36] !== t22) {
         t23 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "relative h-48 overflow-hidden",
+            className: "relative h-32 sm:h-36 overflow-hidden",
             children: [
                 t12,
                 t13,
@@ -4097,7 +4098,7 @@ function MenuCard(t0) {
     let t24;
     if ($[38] !== item.name) {
         t24 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-            className: "text-lg font-semibold text-white group-hover:text-[#FF4D00] transition-colors",
+            className: "text-sm font-semibold text-white group-hover:text-[#FF4D00] transition-colors line-clamp-1",
             children: item.name
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
@@ -4112,7 +4113,7 @@ function MenuCard(t0) {
     let t25;
     if ($[40] === Symbol.for("react.memo_cache_sentinel")) {
         t25 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
-            className: "w-4 h-4 fill-current"
+            className: "w-3 h-3 fill-current"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
             lineNumber: 238,
@@ -4125,16 +4126,16 @@ function MenuCard(t0) {
     let t26;
     if ($[41] !== item.rating) {
         t26 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex items-center gap-1 text-[#FFD700]",
+            className: "flex items-center gap-0.5 text-[#FFD700] flex-shrink-0",
             children: [
                 t25,
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "text-sm font-medium",
+                    className: "text-xs font-medium",
                     children: item.rating
                 }, void 0, false, {
                     fileName: "[project]/src/components/sections/Menu.tsx",
                     lineNumber: 245,
-                    columnNumber: 72
+                    columnNumber: 88
                 }, this)
             ]
         }, void 0, true, {
@@ -4150,7 +4151,7 @@ function MenuCard(t0) {
     let t27;
     if ($[43] !== t24 || $[44] !== t26) {
         t27 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex items-start justify-between mb-2",
+            className: "flex items-start justify-between mb-1",
             children: [
                 t24,
                 t26
@@ -4169,7 +4170,7 @@ function MenuCard(t0) {
     let t28;
     if ($[46] !== item.description) {
         t28 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-            className: "text-sm text-white/60 mb-3 line-clamp-2",
+            className: "text-xs text-white/60 mb-2 line-clamp-1",
             children: item.description
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
@@ -4184,7 +4185,7 @@ function MenuCard(t0) {
     let t29;
     if ($[48] !== item.price) {
         t29 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xl font-bold text-[#FF4D00]",
+            className: "text-base font-bold text-[#FF4D00]",
             children: [
                 "₹",
                 item.price
@@ -4202,7 +4203,7 @@ function MenuCard(t0) {
     let t30;
     if ($[50] === Symbol.for("react.memo_cache_sentinel")) {
         t30 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
-            className: "w-3 h-3"
+            className: "w-2.5 h-2.5"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
             lineNumber: 278,
@@ -4215,7 +4216,7 @@ function MenuCard(t0) {
     let t31;
     if ($[51] !== item.prepTime) {
         t31 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-white/40 flex items-center gap-1",
+            className: "text-[10px] text-white/40 flex items-center gap-0.5",
             children: [
                 t30,
                 " ",
@@ -4234,7 +4235,7 @@ function MenuCard(t0) {
     let t32;
     if ($[53] !== t29 || $[54] !== t31) {
         t32 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex items-center gap-3",
+            className: "flex items-center justify-between mb-2",
             children: [
                 t29,
                 t31
@@ -4251,60 +4252,23 @@ function MenuCard(t0) {
         t32 = $[55];
     }
     let t33;
-    if ($[56] !== item.reviews) {
-        t33 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-white/40",
-            children: [
-                item.reviews,
-                " reviews"
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 302,
-            columnNumber: 11
-        }, this);
-        $[56] = item.reviews;
-        $[57] = t33;
-    } else {
-        t33 = $[57];
-    }
     let t34;
-    if ($[58] !== t32 || $[59] !== t33) {
-        t34 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex items-center justify-between",
-            children: [
-                t32,
-                t33
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 310,
-            columnNumber: 11
-        }, this);
-        $[58] = t32;
-        $[59] = t33;
-        $[60] = t34;
-    } else {
-        t34 = $[60];
-    }
-    let t35;
-    let t36;
-    if ($[61] === Symbol.for("react.memo_cache_sentinel")) {
-        t35 = {
+    if ($[56] === Symbol.for("react.memo_cache_sentinel")) {
+        t33 = {
             scale: 1.02
         };
-        t36 = {
+        t34 = {
             scale: 0.98
         };
-        $[61] = t35;
-        $[62] = t36;
+        $[56] = t33;
+        $[57] = t34;
     } else {
-        t35 = $[61];
-        t36 = $[62];
+        t33 = $[56];
+        t34 = $[57];
     }
-    let t37;
-    if ($[63] !== showAdded) {
-        t37 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+    let t35;
+    if ($[58] !== showAdded) {
+        t35 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
             mode: "wait",
             children: showAdded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
                 initial: {
@@ -4319,11 +4283,11 @@ function MenuCard(t0) {
                     opacity: 0,
                     y: -10
                 },
-                className: "text-green-400",
+                className: "text-green-400 text-xs",
                 children: "Added! ✓"
             }, "added", false, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 334,
+                lineNumber: 317,
                 columnNumber: 53
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].span, {
                 initial: {
@@ -4338,96 +4302,96 @@ function MenuCard(t0) {
                     opacity: 0,
                     y: -10
                 },
-                className: "flex items-center gap-2",
+                className: "flex items-center gap-1.5 text-xs",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                        className: "w-4 h-4 group-hover/btn:rotate-90 transition-transform"
+                        className: "w-3.5 h-3.5 group-hover/btn:rotate-90 transition-transform"
                     }, void 0, false, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 352,
-                        columnNumber: 46
+                        lineNumber: 335,
+                        columnNumber: 56
                     }, this),
-                    "Add to Cart"
+                    "Add"
                 ]
             }, "add", true, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 343,
-                columnNumber: 62
+                lineNumber: 326,
+                columnNumber: 70
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 334,
+            lineNumber: 317,
             columnNumber: 11
         }, this);
-        $[63] = showAdded;
-        $[64] = t37;
+        $[58] = showAdded;
+        $[59] = t35;
     } else {
-        t37 = $[64];
+        t35 = $[59];
     }
-    let t38;
-    if ($[65] !== handleAddToCart || $[66] !== t37) {
-        t38 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
+    let t36;
+    if ($[60] !== handleAddToCart || $[61] !== t35) {
+        t36 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].button, {
             onClick: handleAddToCart,
-            className: "mt-4 w-full py-2.5 rounded-xl bg-white/5 hover:bg-[#FF4D00] text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 group/btn",
-            whileHover: t35,
-            whileTap: t36,
-            children: t37
+            className: "w-full py-2 rounded-lg bg-white/5 hover:bg-[#FF4D00] text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-1.5 group/btn",
+            whileHover: t33,
+            whileTap: t34,
+            children: t35
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 360,
+            lineNumber: 343,
             columnNumber: 11
         }, this);
-        $[65] = handleAddToCart;
-        $[66] = t37;
-        $[67] = t38;
+        $[60] = handleAddToCart;
+        $[61] = t35;
+        $[62] = t36;
     } else {
-        t38 = $[67];
+        t36 = $[62];
     }
-    let t39;
-    if ($[68] !== t27 || $[69] !== t28 || $[70] !== t34 || $[71] !== t38) {
-        t39 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "p-4",
+    let t37;
+    if ($[63] !== t27 || $[64] !== t28 || $[65] !== t32 || $[66] !== t36) {
+        t37 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "p-3",
             children: [
                 t27,
                 t28,
-                t34,
-                t38
+                t32,
+                t36
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 369,
+            lineNumber: 352,
             columnNumber: 11
         }, this);
-        $[68] = t27;
-        $[69] = t28;
-        $[70] = t34;
-        $[71] = t38;
-        $[72] = t39;
+        $[63] = t27;
+        $[64] = t28;
+        $[65] = t32;
+        $[66] = t36;
+        $[67] = t37;
     } else {
-        t39 = $[72];
+        t37 = $[67];
     }
-    let t40;
-    if ($[73] !== t23 || $[74] !== t39) {
-        t40 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-hover",
+    let t38;
+    if ($[68] !== t23 || $[69] !== t37) {
+        t38 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "relative overflow-hidden rounded-xl bg-[#1a1a1a] card-hover",
             children: [
                 t23,
-                t39
+                t37
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 380,
+            lineNumber: 363,
             columnNumber: 11
         }, this);
-        $[73] = t23;
-        $[74] = t39;
-        $[75] = t40;
+        $[68] = t23;
+        $[69] = t37;
+        $[70] = t38;
     } else {
-        t40 = $[75];
+        t38 = $[70];
     }
-    let t41;
-    if ($[76] !== t40 || $[77] !== t6) {
-        t41 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+    let t39;
+    if ($[71] !== t38 || $[72] !== t6) {
+        t39 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
             initial: t2,
             whileInView: t3,
             viewport: t4,
@@ -4435,19 +4399,19 @@ function MenuCard(t0) {
             className: "group relative",
             onMouseEnter: t7,
             onMouseLeave: t8,
-            children: t40
+            children: t38
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 389,
+            lineNumber: 372,
             columnNumber: 11
         }, this);
-        $[76] = t40;
-        $[77] = t6;
-        $[78] = t41;
+        $[71] = t38;
+        $[72] = t6;
+        $[73] = t39;
     } else {
-        t41 = $[78];
+        t39 = $[73];
     }
-    return t41;
+    return t39;
 }
 _s(MenuCard, "pdFXWVPA/F9RI4PS8O5ZYGhw4JE=", false, function() {
     return [
@@ -4458,11 +4422,11 @@ _c = MenuCard;
 function Menu() {
     _s1();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(77);
-    if ($[0] !== "c0594927e1f7b4c7a01121e3758fb226d3e1049008978bea5190e9846472fde7") {
+    if ($[0] !== "a7ee0cb338a9b19e3ae0583028df717f192571520a38f06c3d8600df21d3edf1") {
         for(let $i = 0; $i < 77; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c0594927e1f7b4c7a01121e3758fb226d3e1049008978bea5190e9846472fde7";
+        $[0] = "a7ee0cb338a9b19e3ae0583028df717f192571520a38f06c3d8600df21d3edf1";
     }
     const [activeCategory, setActiveCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("all");
     const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -4507,20 +4471,20 @@ function Menu() {
                         className: "absolute top-0 left-1/4 w-96 h-96 bg-[#FF4D00]/5 rounded-full blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 442,
+                        lineNumber: 425,
                         columnNumber: 67
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 right-1/4 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 442,
+                        lineNumber: 425,
                         columnNumber: 157
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 442,
+                lineNumber: 425,
                 columnNumber: 13
             }, this);
             $[20] = t14;
@@ -4580,7 +4544,7 @@ function Menu() {
                 children: "Our Menu"
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 490,
+                lineNumber: 473,
                 columnNumber: 13
             }, this);
             $[26] = isInView;
@@ -4599,7 +4563,7 @@ function Menu() {
                         children: "Delicious "
                     }, void 0, false, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 502,
+                        lineNumber: 485,
                         columnNumber: 77
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4607,13 +4571,13 @@ function Menu() {
                         children: "Dishes"
                     }, void 0, false, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 502,
+                        lineNumber: 485,
                         columnNumber: 123
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 502,
+                lineNumber: 485,
                 columnNumber: 13
             }, this);
             t21 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4621,7 +4585,7 @@ function Menu() {
                 children: "Explore our carefully curated selection of authentic street food, crafted with passion and the finest ingredients."
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 503,
+                lineNumber: 486,
                 columnNumber: 13
             }, this);
             $[28] = t20;
@@ -4644,7 +4608,7 @@ function Menu() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 511,
+                lineNumber: 494,
                 columnNumber: 13
             }, this);
             $[30] = t16;
@@ -4705,14 +4669,14 @@ function Menu() {
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/sections/Menu.tsx",
-                                lineNumber: 560,
+                                lineNumber: 543,
                                 columnNumber: 14
                             }, this),
                             category.name
                         ]
                     }, category.id, true, {
                         fileName: "[project]/src/components/sections/Menu.tsx",
-                        lineNumber: 554,
+                        lineNumber: 537,
                         columnNumber: 18
                     }, this);
                 }
@@ -4731,7 +4695,7 @@ function Menu() {
                 children: t25
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/Menu.tsx",
-                lineNumber: 569,
+                lineNumber: 552,
                 columnNumber: 13
             }, this);
             $[39] = t23;
@@ -4770,7 +4734,7 @@ function Menu() {
             t4 = $[44];
             t5 = $[45];
         }
-        t6 = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
+        t6 = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5";
         t7 = filteredItems.map(_MenuFilteredItemsMap);
         $[2] = activeCategory;
         $[3] = isInView;
@@ -4819,7 +4783,7 @@ function Menu() {
             children: t7
         }, t1, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 646,
+            lineNumber: 629,
             columnNumber: 11
         }, this);
         $[46] = T0;
@@ -4841,7 +4805,7 @@ function Menu() {
             children: t15
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 661,
+            lineNumber: 644,
             columnNumber: 11
         }, this);
         $[55] = T1;
@@ -4887,7 +4851,7 @@ function Menu() {
             children: "View Full Menu"
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 700,
+            lineNumber: 683,
             columnNumber: 11
         }, this);
         $[63] = t20;
@@ -4904,7 +4868,7 @@ function Menu() {
             children: t20
         }, void 0, false, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 707,
+            lineNumber: 690,
             columnNumber: 11
         }, this);
         $[64] = t18;
@@ -4924,7 +4888,7 @@ function Menu() {
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 715,
+            lineNumber: 698,
             columnNumber: 11
         }, this);
         $[66] = t10;
@@ -4947,7 +4911,7 @@ function Menu() {
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/sections/Menu.tsx",
-            lineNumber: 727,
+            lineNumber: 710,
             columnNumber: 11
         }, this);
         $[72] = t12;
@@ -4972,7 +4936,7 @@ function _MenuFilteredItemsMap(item_0, index) {
         index: index
     }, item_0.id, false, {
         fileName: "[project]/src/components/sections/Menu.tsx",
-        lineNumber: 739,
+        lineNumber: 722,
         columnNumber: 10
     }, this);
 }

@@ -28,80 +28,78 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
       className="group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-hover">
-        {/* Image Container */}
-        <div className="relative h-48 overflow-hidden">
+      <div className="relative overflow-hidden rounded-xl bg-[#1a1a1a] card-hover">
+        {/* Image Container - Smaller height */}
+        <div className="relative h-32 sm:h-36 overflow-hidden">
           <motion.img
             src={item.image}
             alt={item.name}
             className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.1 : 1 }}
-            transition={{ duration: 0.6 }}
+            animate={{ scale: isHovered ? 1.05 : 1 }}
+            transition={{ duration: 0.4 }}
+            loading="lazy"
           />
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
           
-          {/* Badges */}
-          <div className="absolute top-3 left-3 flex gap-2">
+          {/* Badges - Smaller */}
+          <div className="absolute top-2 left-2 flex gap-1">
             {item.isBestseller && (
-              <span className="px-2 py-1 text-xs font-semibold bg-[#FFD700] text-black rounded-full">
-                Bestseller
+              <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-[#FFD700] text-black rounded-full">
+                Best
               </span>
             )}
             {item.isSpicy && (
-              <span className="px-2 py-1 text-xs font-semibold bg-[#FF4D00] text-white rounded-full flex items-center gap-1">
-                <Flame className="w-3 h-3" /> Spicy
+              <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-[#FF4D00] text-white rounded-full flex items-center gap-0.5">
+                <Flame className="w-2 h-2" /> Spicy
               </span>
             )}
           </div>
 
-          {/* Quick Add Button */}
+          {/* Quick Add Button - Smaller */}
           <motion.button
             onClick={handleAddToCart}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
+            className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="w-4 h-4" />
           </motion.button>
         </div>
 
-        {/* Content */}
-        <div className="p-4">
-          <div className="flex items-start justify-between mb-2">
-            <h3 className="text-lg font-semibold text-white group-hover:text-[#FF4D00] transition-colors">
+        {/* Content - Compact padding */}
+        <div className="p-3">
+          <div className="flex items-start justify-between mb-1">
+            <h3 className="text-sm font-semibold text-white group-hover:text-[#FF4D00] transition-colors line-clamp-1">
               {item.name}
             </h3>
-            <div className="flex items-center gap-1 text-[#FFD700]">
-              <Star className="w-4 h-4 fill-current" />
-              <span className="text-sm font-medium">{item.rating}</span>
+            <div className="flex items-center gap-0.5 text-[#FFD700] flex-shrink-0">
+              <Star className="w-3 h-3 fill-current" />
+              <span className="text-xs font-medium">{item.rating}</span>
             </div>
           </div>
 
-          <p className="text-sm text-white/60 mb-3 line-clamp-2">{item.description}</p>
+          <p className="text-xs text-white/60 mb-2 line-clamp-1">{item.description}</p>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-xl font-bold text-[#FF4D00]">₹{item.price}</span>
-              <span className="text-xs text-white/40 flex items-center gap-1">
-                <Clock className="w-3 h-3" /> {item.prepTime}
-              </span>
-            </div>
-            <span className="text-xs text-white/40">{item.reviews} reviews</span>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-base font-bold text-[#FF4D00]">₹{item.price}</span>
+            <span className="text-[10px] text-white/40 flex items-center gap-0.5">
+              <Clock className="w-2.5 h-2.5" /> {item.prepTime}
+            </span>
           </div>
 
-          {/* Add to Cart Button */}
+          {/* Add to Cart Button - Compact */}
           <motion.button
             onClick={handleAddToCart}
-            className="mt-4 w-full py-2.5 rounded-xl bg-white/5 hover:bg-[#FF4D00] text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+            className="w-full py-2 rounded-lg bg-white/5 hover:bg-[#FF4D00] text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-1.5 group/btn"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -112,7 +110,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="text-green-400"
+                  className="text-green-400 text-xs"
                 >
                   Added! ✓
                 </motion.span>
@@ -122,10 +120,10 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1.5 text-xs"
                 >
-                  <Plus className="w-4 h-4 group-hover/btn:rotate-90 transition-transform" />
-                  Add to Cart
+                  <Plus className="w-3.5 h-3.5 group-hover/btn:rotate-90 transition-transform" />
+                  Add
                 </motion.span>
               )}
             </AnimatePresence>
@@ -207,7 +205,7 @@ export default function Menu() {
           })}
         </motion.div>
 
-        {/* Menu Grid */}
+        {/* Menu Grid - 4 columns on large screens */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -215,7 +213,7 @@ export default function Menu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
           >
             {filteredItems.map((item, index) => (
               <MenuCard key={item.id} item={item} index={index} />
