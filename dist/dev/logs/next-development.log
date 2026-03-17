@@ -1,0 +1,4 @@
+[00:06:38.850] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
+[00:06:41.869] Server  LOG     ○ Compiling /_error ...
+[00:07:03.688] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
+[00:07:28.707] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\anton\Downloads\New folder\RESTARNT\restarnt\dist\dev\server\app\_not-found\page\build-manifest.json'
