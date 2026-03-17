@@ -1,58 +1,86 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, Quote, MessageSquare } from 'lucide-react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Star, MessageSquare } from 'lucide-react';
 import { reviews } from '@/data/menu';
 
 export default function Reviews() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  // How many cards visible per group (4 cards, step by 1)
+  const VISIBLE = 4;
+
   // Auto-slide
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
-    }, 5000);
+      setActiveIndex((prev) => (prev + 1) % reviews.length);
+    }, 3500);
     return () => clearInterval(timer);
+  }, [isAutoPlaying]);
+
+  const goNext = useCallback(() => {
+    setIsAutoPlaying(false);
+    setActiveIndex((prev) => (prev + 1) % reviews.length);
   }, []);
 
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % reviews.length);
+  const goPrev = useCallback(() => {
+    setIsAutoPlaying(false);
+    setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+  }, []);
+
+  // Touch handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchEndX.current = e.targetTouches[0].clientX;
+    setIsAutoPlaying(false);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+  const onTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 40) {
+      diff > 0 ? goNext() : goPrev();
+    }
   };
 
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+  // Mouse drag handlers
+  const onMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    setIsAutoPlaying(false);
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    touchEndX.current = e.clientX;
+  };
+  const onMouseUp = () => {
+    if (!isDragging.current) return;
+    const diff = dragStartX.current - touchEndX.current;
+    isDragging.current = false;
+    if (Math.abs(diff) > 40) {
+      diff > 0 ? goNext() : goPrev();
+    }
   };
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.9,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.9,
-    }),
-  };
+  // Build visible 4 cards starting from activeIndex
+  const visibleCards = Array.from({ length: VISIBLE }, (_, i) =>
+    reviews[(activeIndex + i) % reviews.length]
+  );
 
   return (
-    <section id="reviews" className="py-24 bg-[#0B0B0B] relative overflow-hidden">
-      {/* Background Elements */}
+    <section id="reviews" className="py-16 bg-[#0B0B0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF4D00]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF4D00]/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -62,150 +90,107 @@ export default function Reviews() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-sm font-medium text-[#FF4D00] bg-[#FF4D00]/10 rounded-full"
-          >
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 text-sm font-medium text-[#FF4D00] bg-[#FF4D00]/10 rounded-full">
             <MessageSquare className="w-4 h-4" />
             Testimonials
-          </motion.span>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
             <span className="text-white">What Our </span>
             <span className="gradient-text">Guests Say</span>
           </h2>
-          <p className="text-white/60 max-w-2xl mx-auto text-lg">
-            Don't just take our word for it. Here's what our customers have to say 
-            about their dining experience.
-          </p>
         </motion.div>
 
-        {/* Reviews Carousel - Rectangular compact style */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* Main Review Card */}
-          <div className="relative h-[200px] sm:h-[180px]">
-            <AnimatePresence mode="wait" custom={direction}>
+        {/* Reviews Row - 4 cards, touch/drag to swipe */}
+        <div
+          className="select-none cursor-grab active:cursor-grabbing"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+        >
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+            {visibleCards.map((review, i) => (
               <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="absolute inset-0"
+                key={review.id + '-' + activeIndex + '-' + i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.06 }}
+                className="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-[#141414]"
               >
-                {/* Rectangular card - horizontal layout */}
-                <div className="h-full px-5 py-4 rounded-xl glass flex flex-row items-center gap-5 text-left">
-                  {/* Left: Avatar + info */}
-                  <div className="flex flex-col items-center flex-shrink-0 w-20 sm:w-24">
-                    <img
-                      src={reviews[currentIndex].avatar}
-                      alt={reviews[currentIndex].name}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border-2 border-[#FF4D00]/40 mb-2"
-                    />
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-2.5 h-2.5 ${
-                            i < reviews[currentIndex].rating
-                              ? 'text-[#FFD700] fill-[#FFD700]'
-                              : 'text-white/20'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <p className="text-[10px] text-white/80 font-semibold mt-1 text-center leading-tight">
-                      {reviews[currentIndex].name}
-                    </p>
-                    <p className="text-[9px] text-white/40 text-center">
-                      {reviews[currentIndex].date}
-                    </p>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="w-px h-full bg-white/10 flex-shrink-0" />
-
-                  {/* Right: Quote + text */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    <Quote className="w-5 h-5 text-[#FF4D00] mb-2 opacity-60" />
-                    <p className="text-sm sm:text-base text-white/85 leading-relaxed line-clamp-3">
-                      {reviews[currentIndex].comment}
-                    </p>
+                {/* Square avatar at top */}
+                <div className="relative aspect-square w-full overflow-hidden bg-[#1e1e1e] flex-shrink-0">
+                  <img
+                    src={review.avatar}
+                    alt={review.name}
+                    className="w-full h-full object-cover"
+                    draggable={false}
+                  />
+                  {/* Stars overlay bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 flex justify-center py-1 gap-0.5">
+                    {[...Array(5)].map((_, si) => (
+                      <Star
+                        key={si}
+                        className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${
+                          si < review.rating ? 'text-[#FFD700] fill-[#FFD700]' : 'text-white/20'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
+
+                {/* Rectangle text area below square */}
+                <div className="px-2 py-2 sm:px-3 sm:py-2.5 flex flex-col gap-1">
+                  <p className="text-white font-semibold text-[9px] sm:text-xs leading-tight truncate">
+                    {review.name}
+                  </p>
+                  <p className="text-white/55 text-[8px] sm:text-[10px] leading-snug line-clamp-3">
+                    {review.comment}
+                  </p>
+                  <p className="text-white/30 text-[7px] sm:text-[9px] mt-0.5">{review.date}</p>
+                </div>
               </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <motion.button
-              onClick={prevSlide}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:bg-[#FF4D00]/20 transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-
-            {/* Dots */}
-            <div className="flex gap-2">
-              {reviews.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setDirection(index > currentIndex ? 1 : -1);
-                    setCurrentIndex(index);
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? 'w-8 bg-[#FF4D00]'
-                      : 'bg-white/30 hover:bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-
-            <motion.button
-              onClick={nextSlide}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:bg-[#FF4D00]/20 transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
+            ))}
           </div>
         </div>
 
-        {/* Stats */}
+        {/* Dot indicators + swipe hint */}
+        <div className="flex flex-col items-center gap-3 mt-6">
+          <div className="flex gap-1.5">
+            {reviews.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => { setIsAutoPlaying(false); setActiveIndex(index); }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === activeIndex ? 'w-6 bg-[#FF4D00]' : 'w-1.5 bg-white/25 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+          <p className="text-white/25 text-[10px]">← Swipe or drag to see more →</p>
+        </div>
+
+        {/* Stats - compact 4 col */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-10 grid grid-cols-4 gap-2 sm:gap-4"
         >
           {[
-            { value: '4.9', label: 'Average Rating' },
+            { value: '4.9', label: 'Rating' },
             { value: '10K+', label: 'Reviews' },
-            { value: '95%', label: 'Recommend Us' },
+            { value: '95%', label: 'Recommend' },
             { value: '4.8', label: 'Food Quality' },
           ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.5 + index * 0.1 }}
-              className="text-center p-6 rounded-2xl glass"
-            >
-              <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-white/60">{stat.label}</div>
-            </motion.div>
+            <div key={index} className="text-center py-3 px-2 rounded-xl border border-white/8 bg-[#141414]">
+              <div className="text-xl sm:text-2xl font-bold gradient-text">{stat.value}</div>
+              <div className="text-[9px] sm:text-xs text-white/50 mt-0.5">{stat.label}</div>
+            </div>
           ))}
         </motion.div>
       </div>
