@@ -36,9 +36,9 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative overflow-hidden rounded-xl bg-[#1a1a1a] card-hover">
-        {/* Image Container - Smaller height */}
-        <div className="relative h-32 sm:h-36 overflow-hidden">
+      <div className="relative overflow-hidden rounded-lg bg-[#1a1a1a] card-hover">
+        {/* Image Container - Extra small for 8 per row */}
+        <div className="relative h-20 sm:h-24 lg:h-28 overflow-hidden">
           <motion.img
             src={item.image}
             alt={item.name}
@@ -50,56 +50,56 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
           
-          {/* Badges - Smaller */}
-          <div className="absolute top-2 left-2 flex gap-1">
+          {/* Badges - Extra small */}
+          <div className="absolute top-1 left-1 flex gap-0.5">
             {item.isBestseller && (
-              <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-[#FFD700] text-black rounded-full">
-                Best
+              <span className="px-1 py-0 text-[8px] font-semibold bg-[#FFD700] text-black rounded">
+                B
               </span>
             )}
             {item.isSpicy && (
-              <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-[#FF4D00] text-white rounded-full flex items-center gap-0.5">
-                <Flame className="w-2 h-2" /> Spicy
+              <span className="px-1 py-0 text-[8px] font-semibold bg-[#FF4D00] text-white rounded flex items-center">
+                <Flame className="w-2 h-2" />
               </span>
             )}
           </div>
 
-          {/* Quick Add Button - Smaller */}
+          {/* Quick Add Button - Extra small */}
           <motion.button
             onClick={handleAddToCart}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
+            className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#FF4D00] flex items-center justify-center text-white shadow-lg hover:bg-[#cc3d00] transition-colors"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3 h-3" />
           </motion.button>
         </div>
 
-        {/* Content - Compact padding */}
-        <div className="p-3">
-          <div className="flex items-start justify-between mb-1">
-            <h3 className="text-sm font-semibold text-white group-hover:text-[#FF4D00] transition-colors line-clamp-1">
+        {/* Content - Extra compact padding */}
+        <div className="p-2">
+          <div className="flex items-start justify-between mb-0.5">
+            <h3 className="text-xs font-semibold text-white group-hover:text-[#FF4D00] transition-colors line-clamp-1">
               {item.name}
             </h3>
             <div className="flex items-center gap-0.5 text-[#FFD700] flex-shrink-0">
-              <Star className="w-3 h-3 fill-current" />
-              <span className="text-xs font-medium">{item.rating}</span>
+              <Star className="w-2.5 h-2.5 fill-current" />
+              <span className="text-[10px] font-medium">{item.rating}</span>
             </div>
           </div>
 
-          <p className="text-xs text-white/60 mb-2 line-clamp-1">{item.description}</p>
+          <p className="text-[10px] text-white/60 mb-1 line-clamp-1 hidden sm:block">{item.description}</p>
 
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-base font-bold text-[#FF4D00]">₹{item.price}</span>
-            <span className="text-[10px] text-white/40 flex items-center gap-0.5">
-              <Clock className="w-2.5 h-2.5" /> {item.prepTime}
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-sm font-bold text-[#FF4D00]">₹{item.price}</span>
+            <span className="text-[8px] text-white/40 flex items-center gap-0.5">
+              <Clock className="w-2 h-2" /> {item.prepTime}
             </span>
           </div>
 
-          {/* Add to Cart Button - Compact */}
+          {/* Add to Cart Button - Extra compact */}
           <motion.button
             onClick={handleAddToCart}
-            className="w-full py-2 rounded-lg bg-white/5 hover:bg-[#FF4D00] text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-1.5 group/btn"
+            className="w-full py-1.5 rounded bg-white/5 hover:bg-[#FF4D00] text-white text-xs font-medium transition-all duration-300 flex items-center justify-center gap-1 group/btn"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -110,9 +110,9 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="text-green-400 text-xs"
+                  className="text-green-400 text-[10px]"
                 >
-                  Added! ✓
+                  ✓
                 </motion.span>
               ) : (
                 <motion.span
@@ -120,10 +120,10 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-1.5 text-xs"
+                  className="flex items-center gap-1 text-[10px]"
                 >
-                  <Plus className="w-3.5 h-3.5 group-hover/btn:rotate-90 transition-transform" />
-                  Add
+                  <Plus className="w-3 h-3 group-hover/btn:rotate-90 transition-transform" />
+                  <span className="hidden sm:inline">Add</span>
                 </motion.span>
               )}
             </AnimatePresence>
@@ -205,7 +205,7 @@ export default function Menu() {
           })}
         </motion.div>
 
-        {/* Menu Grid - 4 columns on large screens */}
+        {/* Menu Grid - 4 cards mobile, 8 cards large screen */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -213,7 +213,7 @@ export default function Menu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
+            className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3 lg:gap-4"
           >
             {filteredItems.map((item, index) => (
               <MenuCard key={item.id} item={item} index={index} />
