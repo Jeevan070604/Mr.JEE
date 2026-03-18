@@ -5,7 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Cart from '@/components/cart/Cart';
 import Hero from '@/components/sections/Hero';
-import Menu from '@/components/sections/Menu';
+import MenuBanner from '@/components/sections/MenuBanner';
 import Gallery from '@/components/sections/Gallery';
 import Reviews from '@/components/sections/Reviews';
 import Booking from '@/components/sections/Booking';
@@ -20,7 +20,7 @@ export default function Home() {
       <Cart />
       <main className="bg-[#0B0B0B]">
         <Hero />
-        <Menu />
+        <MenuBanner />
         <Gallery />
         <Reviews />
         <Booking />

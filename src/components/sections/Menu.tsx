@@ -171,7 +171,7 @@ export default function Menu() {
         {/* Menu Grid - image only, tap to add to cart */}
         <div
           key={activeCategory}
-          className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2 sm:gap-3 lg:gap-4"
+          className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4"
         >
           {filteredItems.map((item, index) => (
             <MenuCard key={item.id} item={item} index={index} />
