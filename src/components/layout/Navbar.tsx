@@ -35,14 +35,17 @@ export default function Navbar() {
   const handleNavClick = (link: { href: string; section: boolean }) => {
     setIsMobileMenuOpen(false);
     if (!link.section) {
+      // Navigate to dedicated page (e.g. /menu)
       router.push(link.href);
       return;
     }
-    // If on menu page, go home first then scroll
     if (isMenuPage) {
-      router.push('/' + link.href);
+      // On /menu page: go back to home with hash anchor
+      // basePath is handled by Next.js router automatically
+      window.location.href = window.location.origin + (process.env.NODE_ENV === 'production' ? '/Mr.JEE' : '') + '/' + link.href;
       return;
     }
+    // On home page: smooth scroll to section
     const element = document.querySelector(link.href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
