@@ -3,21 +3,26 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, Phone } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Menu', href: '#menu' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'Reviews', href: '#reviews' },
-  { name: 'Book Table', href: '#booking' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '#home', section: true },
+  { name: 'Menu', href: '/menu', section: false },
+  { name: 'Gallery', href: '#gallery', section: true },
+  { name: 'Reviews', href: '#reviews', section: true },
+  { name: 'Book Table', href: '#booking', section: true },
+  { name: 'Contact', href: '#contact', section: true },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
+  const pathname = usePathname();
+  const router = useRouter();
+  const isMenuPage = pathname === '/menu';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +32,21 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
+  const handleNavClick = (link: { href: string; section: boolean }) => {
+    setIsMobileMenuOpen(false);
+    if (!link.section) {
+      router.push(link.href);
+      return;
+    }
+    // If on menu page, go home first then scroll
+    if (isMenuPage) {
+      router.push('/' + link.href);
+      return;
+    }
+    const element = document.querySelector(link.href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -54,7 +68,7 @@ export default function Navbar() {
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection('#home');
+                handleNavClick({ href: '#home', section: true });
               }}
               className="flex items-center gap-2"
               whileHover={{ scale: 1.02 }}
@@ -75,9 +89,9 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href);
+                    handleNavClick(link);
                   }}
-                  className="text-sm font-medium text-white/80 hover:text-[#FF4D00] transition-colors relative group"
+                  className={`text-sm font-medium transition-colors relative group ${!link.section && isMenuPage ? 'text-[#FF4D00]' : 'text-white/80 hover:text-[#FF4D00]'}`}
                   whileHover={{ y: -2 }}
                 >
                   {link.name}
@@ -167,7 +181,7 @@ export default function Navbar() {
                       href={link.href}
                       onClick={(e) => {
                         e.preventDefault();
-                        scrollToSection(link.href);
+                        handleNavClick(link);
                       }}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
